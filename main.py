@@ -26,7 +26,7 @@ class App(customtkinter.CTk):
         self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, text="Categories", font=customtkinter.CTkFont(size=20, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
 
-        self.sidebar_names = ['Typing', 'Trivia', 'Nutrition', 'Vocab', 'Reaction', 'Trivia', '7', '8', '9']
+        self.sidebar_names = ['Typing', 'Math', 'Nutrition', 'Vocab', 'Reaction', 'Trivia', '7', '8', '9']
         self.sidebar_buttons = []
         for i in range(9):
             button = customtkinter.CTkButton(self.sidebar_frame, text=self.sidebar_names[i], command=lambda i=i: self.sidebar_button_event(i))
