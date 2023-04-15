@@ -49,7 +49,9 @@ class App(customtkinter.CTk):
         self.entry = customtkinter.CTkEntry(self, placeholder_text="Enter Text")
         self.entry.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
 
-        self.main_button_1 = customtkinter.CTkButton(master=self, text="Enter", fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"))
+        self.main_button_1 = customtkinter.CTkButton(master=self, text="Enter", fg_color="transparent",
+                                                     command=self.entry_button_event,
+                                                     border_width=2, text_color=("gray10", "#DCE4EE"))
         self.main_button_1.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
         # set default values
@@ -76,6 +78,10 @@ class App(customtkinter.CTk):
     def sidebar_button_event(self, index):
         print(f"{self.sidebar_names[index]} click")
         self.tab_label.configure(text=f"{self.sidebar_names[index]}")
+
+    def entry_button_event(self):
+        text = f"{self.entry.get()}"
+        print(text)
 
 
 if __name__ == "__main__":
