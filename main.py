@@ -62,13 +62,16 @@ class App(customtkinter.CTk):
         self.scaling_optionemenu.set("100%")
 
         # create tab frame
-        # self.tab_frame = customtkinter.CTkFrame(self, corner_radius=0)
+        
+        self.tab_frame = None
+        
+        self.tab_label = None
+        
+
+    def createTrivia(self):
         self.tab_frame = TriviaComponent(self, corner_radius=0)
         self.tab_frame.grid(row=0, column=1, rowspan=3, columnspan=3, sticky="nsew")
         self.tab_label = customtkinter.CTkLabel(self.tab_frame, text="", font=customtkinter.CTkFont(size=20, weight="bold"))
-        # self.tab_label.pack(expand=True)
-
-        
 
     def open_input_dialog_event(self):
         dialog = customtkinter.CTkInputDialog(text="Type in a number:", title="CTkInputDialog")
@@ -82,8 +85,14 @@ class App(customtkinter.CTk):
         customtkinter.set_widget_scaling(new_scaling_float)
 
     def sidebar_button_event(self, index):
+        if self.tab_frame: 
+            self.tab_frame.destroy()
+
+        if self.sidebar_frame.sidebar_names[index] == "Trivia":
+            self.createTrivia()
+
         print(f"{self.sidebar_frame.sidebar_names[index]} click")
-        self.tab_label.configure(text=f"{self.sidebar_frame.sidebar_names[index]}")
+        # self.tab_label.configure(text=f"{self.sidebar_frame.sidebar_names[index]}")
 
     def entry_button_event(self):
         text = f"{self.entry.get()}"
