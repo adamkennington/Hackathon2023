@@ -3,6 +3,7 @@ import tkinter.messagebox
 import customtkinter
 from components.sidebar import Sidebar
 from components.triviaComponent import TriviaComponent
+from components.vocabComponent import VocabComponent
 
 customtkinter.set_appearance_mode("Dark")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -73,6 +74,11 @@ class App(customtkinter.CTk):
         self.tab_frame.grid(row=0, column=1, rowspan=3, columnspan=3, sticky="nsew")
         self.tab_label = customtkinter.CTkLabel(self.tab_frame, text="", font=customtkinter.CTkFont(size=20, weight="bold"))
 
+    def createVocab(self):
+        self.tab_frame = VocabComponent(self, corner_radius=0)
+        self.tab_frame.grid(row=0, column=1, rowspan=3, columnspan=3, sticky="nsew")
+        self.tab_label = customtkinter.CTkLabel(self.tab_frame, text="", font=customtkinter.CTkFont(size=20, weight="bold"))
+
     def open_input_dialog_event(self):
         dialog = customtkinter.CTkInputDialog(text="Type in a number:", title="CTkInputDialog")
         print("CTkInputDialog:", dialog.get_input())
@@ -90,6 +96,9 @@ class App(customtkinter.CTk):
 
         if self.sidebar_frame.sidebar_names[index] == "Trivia":
             self.createTrivia()
+
+        if self.sidebar_frame.sidebar_names[index] == "Vocab":
+            self.createVocab()
 
         print(f"{self.sidebar_frame.sidebar_names[index]} click")
         # self.tab_label.configure(text=f"{self.sidebar_frame.sidebar_names[index]}")
