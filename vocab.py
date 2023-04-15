@@ -28,6 +28,8 @@ class Vocab:
                     continue
                 allAnswers.append(self.definitions[index])
                 break
+
+        random.shuffle(allAnswers)
                 
         print(answerWord)
         print(answerDef)
@@ -47,6 +49,8 @@ class Vocab:
                     continue
                 allAnswers.append(self.words[index])
                 break
+
+        random.shuffle(allAnswers)
 
 
 if __name__ == "__main__":
