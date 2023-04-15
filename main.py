@@ -1,6 +1,8 @@
 import tkinter
 import tkinter.messagebox
 import customtkinter
+from components.sidebar import Sidebar
+from components.triviaComponent import TriviaComponent
 
 customtkinter.set_appearance_mode("Dark")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -20,19 +22,20 @@ class App(customtkinter.CTk):
         self.grid_rowconfigure((0, 1, 2), weight=1)
 
         # create sidebar frame with widgets
-        self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
-        self.sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
-        self.sidebar_frame.grid_rowconfigure(4, weight=1)
-        self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, text="Categories", font=customtkinter.CTkFont(size=20, weight="bold"))
-        self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
+        self.sidebar_frame = Sidebar(self, self.sidebar_button_event, width=140, corner_radius=0)
+        # self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
+        # self.sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
+        # self.sidebar_frame.grid_rowconfigure(4, weight=1)
+        # self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, text="Categories", font=customtkinter.CTkFont(size=20, weight="bold"))
+        # self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
 
-        self.sidebar_names = ['Typing', 'Math', 'Nutrition', 'Vocab', 'Reaction', 'Trivia', '7', '8', '9']
-        self.sidebar_buttons = []
-        for i in range(9):
-            button = customtkinter.CTkButton(self.sidebar_frame, text=self.sidebar_names[i], command=lambda i=i: self.sidebar_button_event(i))
-            button.grid(row=i+1, column=0, padx=20, pady=10, sticky="nsew")
-            self.sidebar_frame.grid_rowconfigure(i+1, weight=1)
-            self.sidebar_buttons.append(button)
+        # self.sidebar_names = ['Typing', 'Math', 'Nutrition', 'Vocab', 'Reaction', 'Trivia', '7', '8', '9']
+        # self.sidebar_buttons = []
+        # for i in range(9):
+        #     button = customtkinter.CTkButton(self.sidebar_frame, text=self.sidebar_names[i], command=lambda i=i: self.sidebar_button_event(i))
+        #     button.grid(row=i+1, column=0, padx=20, pady=10, sticky="nsew")
+        #     self.sidebar_frame.grid_rowconfigure(i+1, weight=1)
+        #     self.sidebar_buttons.append(button)
 
         self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Appearance Mode:", anchor="w")
         self.appearance_mode_label.grid(row=10, column=0, padx=20, pady=(10, 0))
@@ -59,10 +62,13 @@ class App(customtkinter.CTk):
         self.scaling_optionemenu.set("100%")
 
         # create tab frame
-        self.tab_frame = customtkinter.CTkFrame(self, corner_radius=0)
+        # self.tab_frame = customtkinter.CTkFrame(self, corner_radius=0)
+        self.tab_frame = TriviaComponent(self, corner_radius=0)
         self.tab_frame.grid(row=0, column=1, rowspan=3, columnspan=3, sticky="nsew")
         self.tab_label = customtkinter.CTkLabel(self.tab_frame, text="", font=customtkinter.CTkFont(size=20, weight="bold"))
-        self.tab_label.pack(expand=True)
+        # self.tab_label.pack(expand=True)
+
+        
 
     def open_input_dialog_event(self):
         dialog = customtkinter.CTkInputDialog(text="Type in a number:", title="CTkInputDialog")
@@ -76,8 +82,8 @@ class App(customtkinter.CTk):
         customtkinter.set_widget_scaling(new_scaling_float)
 
     def sidebar_button_event(self, index):
-        print(f"{self.sidebar_names[index]} click")
-        self.tab_label.configure(text=f"{self.sidebar_names[index]}")
+        print(f"{self.sidebar_frame.sidebar_names[index]} click")
+        self.tab_label.configure(text=f"{self.sidebar_frame.sidebar_names[index]}")
 
     def entry_button_event(self):
         text = f"{self.entry.get()}"
