@@ -49,6 +49,7 @@ class TypingComponent(customtkinter.CTkFrame):
             if event.event_type == 'down' and event.name.isalpha():
                 print("Typing Begins")
                 self.typed += event.name
+                self.sentence_label.destroy()
                 self.start_typing()
                 break
 
@@ -76,7 +77,10 @@ class TypingComponent(customtkinter.CTkFrame):
 
             self.sentence_label.grid(row=2, column=0)
             self.sentence_label.place(relx=0.1, rely=0.5)
+
             event = keyboard.read_event()
+            while event.event_type != 'down':
+                event = keyboard.read_event()
             if event.event_type == 'down':
                 if event.name == 'backspace':
                     self.typed = self.typed[:-1]
@@ -91,7 +95,7 @@ class TypingComponent(customtkinter.CTkFrame):
                 self.typed_label.destroy()
                 self.typo = False
 
-        self.sentence_label.destroy()
-        self.correct_typed_label.destroy()
+            self.sentence_label.destroy()
+            self.correct_typed_label.destroy()
         self.reset()
 
