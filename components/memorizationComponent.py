@@ -16,12 +16,14 @@ class MemorizationComponent(customtkinter.CTkFrame):
         self.shown = ""
         self.typo = False
         self.shownLetters = 0
+        self.prevScore = ""
+        self.currentScore = 0
 
         self.grid(row=0, column=1, padx=(5, 0), pady=(5, 0), rowspan=4, sticky="nsew")
 
         letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
         sequence = []
-        for _ in range(20):
+        for _ in range(25):
             sequence.append(random.choice(letters))
         self.sentence = "".join(sequence)
         print(self.sentence)
@@ -33,9 +35,12 @@ class MemorizationComponent(customtkinter.CTkFrame):
         self.reset()
 
     def reset(self):
+
+        self.score_label = customtkinter.CTkLabel(self, text=self.prevScore)
+        self.score_label.grid(row=0, column=2)
+        self.score_label.place(relx=0.8, rely=0.1)
+
         self.typed = ""
-
-
         self.shownLetters += 1
         self.shown = self.sentence[:self.shownLetters]
         self.sentence_label = customtkinter.CTkLabel(master=self, text=self.shown, anchor="w",
@@ -69,7 +74,11 @@ class MemorizationComponent(customtkinter.CTkFrame):
             self.typed_label.place(relx=0.1, rely=0.5)
 
             if self.typed == 'enter':
-                self.typed_label.configure(text = "FAILURE")
+                self.typed_label.configure(text = 'FAILURE')
+                
+                self.prevScore = 'Your score: ' + str(self.currentScore)
+                self.score_label.configure(text = self.prevScore)
+                self.currentScore = 0
                 self.configure(fg_color = "red") 
                 while True:
                     event = keyboard.read_event()
@@ -97,7 +106,10 @@ class MemorizationComponent(customtkinter.CTkFrame):
                 self.typed_label.destroy()
             
         if self.typed != self.shown:
-            self.typed_label.configure(text = "FAILURE")
+            self.typed_label.configure(text = 'FAILURE')
+            self.prevScore = 'Your score: ' + str(self.currentScore)
+            self.score_label.configure(text = self.prevScore)
+            self.currentScore = 0
             self.configure(fg_color = "red")
            
             while True:
@@ -108,5 +120,6 @@ class MemorizationComponent(customtkinter.CTkFrame):
                     break            
 
         else:
+            self.currentScore = len(self.typed)
             self.typed_label.destroy()
             self.reset()
