@@ -53,13 +53,13 @@ class App(customtkinter.CTk):
         self.scaling_optionemenu.grid(row=13, column=0, padx=20, pady=(10, 20))
 
         # create main entry and button
-        self.entry = customtkinter.CTkEntry(self, placeholder_text="Enter Text")
-        self.entry.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
-
-        self.main_button_1 = customtkinter.CTkButton(master=self, text="Enter", fg_color="transparent",
-                                                     command=self.entry_button_event,
-                                                     border_width=2, text_color=("gray10", "#DCE4EE"))
-        self.main_button_1.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
+        # self.entry = customtkinter.CTkEntry(self, placeholder_text="Enter Text")
+        # self.entry.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
+        #
+        # self.main_button_1 = customtkinter.CTkButton(master=self, text="Enter", fg_color="transparent",
+        #                                              command=self.entry_button_event,
+        #                                              border_width=2, text_color=("gray10", "#DCE4EE"))
+        # self.main_button_1.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
         # set default values
         self.appearance_mode_optionemenu.set("Dark")
