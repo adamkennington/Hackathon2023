@@ -4,7 +4,6 @@ import customtkinter
 import trivia
 
 
-
 class TriviaComponent(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
@@ -26,15 +25,10 @@ class TriviaComponent(customtkinter.CTkFrame):
         self.game.grid_columnconfigure(1, weight=3)
         self.game.grid_columnconfigure(2, weight=1)
         
-        
-
         self.playing: bool = False
         self.categories = []
         self.selectedCat = 0
         self.selectedDiff = 0
-
-        
-
 
         # for when you start playing
         self.questions = []

@@ -2,17 +2,21 @@ import tkinter
 import tkinter.messagebox
 import customtkinter
 from random import randrange, random
+import pandas as pd
 
 class ShowerComponent(customtkinter.CTkFrame):
     def __init__(self, master, parentAfter, **kwargs):
         super().__init__(master, **kwargs)
         self.parentAfter = parentAfter
-        self.bestTime = 0
+
+        self.df = None
+        self.df = pd.read_csv('components/high_scores.csv')
+        self.bestTime = self.df['shower'][0]
+
+        
+
         self.yourTime = 0
         self.grid_rowconfigure((0, 1, 2, 3, 4), weight=1)
-        # self.grid_rowconfigure(1, weight=1)
-        # self.grid_rowconfigure(2, weight=1)
-        # self.grid_rowconfigure(3, weight=1)
 
         self.grid_columnconfigure((0, 1, 2), weight=1)
         
@@ -37,6 +41,8 @@ class ShowerComponent(customtkinter.CTkFrame):
             self.yourTimeDisplay.configure(text=f"WOW! It has been more than {self.bestTime} days since you have taken a shower?!?")
             self.bestTime = self.yourTime
             self.bestTimeDisplay.configure(text=f"Best Shower Delay = {self.bestTime} Days.")
+            self.df.loc[0, 'shower'] = self.bestTime
+            self.df.to_csv('components/high_scores.csv', index=False)
         else:
             self.yourTimeDisplay.configure(text=f"It has been {self.yourTime} days since you have taken a shower.")
 
