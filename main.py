@@ -93,7 +93,7 @@ class App(customtkinter.CTk):
         self.tab_frame.grid(row=0, column=1, rowspan=3, columnspan=3, sticky="nsew")
 
     def createShower(self):
-        self.tab_frame = ShowerComponent(self, corner_radius=0)
+        self.tab_frame = ShowerComponent(self, self.after, corner_radius=0)
         self.tab_frame.grid(row=0, column=1, rowspan=3, columnspan=3, sticky="nsew")
 
     def createMemorization(self):
