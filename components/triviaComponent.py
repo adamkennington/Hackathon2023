@@ -33,7 +33,7 @@ class TriviaComponent(customtkinter.CTkFrame):
         self.selectedCat = 0
         self.selectedDiff = 0
 
-        self.drawHeader()
+        
 
 
         # for when you start playing
@@ -51,6 +51,11 @@ class TriviaComponent(customtkinter.CTkFrame):
         self.correctNum = 0
         self.nextQBtn = None
 
+        self.cats = None
+        self.diff = None
+        self.playButton = None
+        self.drawHeader()
+
 
 
     def pick_cat_event(self, el):
@@ -64,24 +69,25 @@ class TriviaComponent(customtkinter.CTkFrame):
     def drawHeader(self):
         textbox = customtkinter.CTkLabel(self.header, text="Category:")
         textbox.grid(row=0, pady=15, column=0)
-        cats = customtkinter.CTkOptionMenu(master=self.header, width=300,
+        self.cats = customtkinter.CTkOptionMenu(master=self.header, width=300,
                                        values=trivia.CATEGORIES,
                                        command=self.pick_cat_event)
-        cats.grid(row=1, column=0, padx=20, pady=10)
+        self.cats.grid(row=1, column=0, padx=20, pady=10)
 
 
         textbox = customtkinter.CTkLabel(self.header, text="Difficulty:")
         textbox.grid(row=0, pady=15, column=1)
-        diffs = customtkinter.CTkOptionMenu(master=self.header,
+        self.diffs = customtkinter.CTkOptionMenu(master=self.header,
                                        values=trivia.DIFFICULTY,
                                        command=self.pick_diff_event)
-        diffs.grid(row=1, column=1, padx=20, pady=10)
-
-
-        button = customtkinter.CTkButton(self.header, text="Play!", command=self.play)
-        button.grid(row=1, column=3, pady=15)
+        self.diffs.grid(row=1, column=1, padx=20, pady=10)
+        self.playButton = customtkinter.CTkButton(self.header, text="Play!", command=self.play)
+        self.playButton.grid(row=1, column=3, pady=15)
 
     def play(self):
+        self.cats.configure(state="disabled")
+        self.diffs.configure(state="disabled")
+        self.playButton.configure(state="disabled")
         triviaInstance = trivia.Trivia(self.selectedCat, self.selectedDiff)
 
         self.questions = triviaInstance.getTrivia()
