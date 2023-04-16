@@ -7,6 +7,8 @@
 -   Christian Argueta
 -   Ethan Berkley
 
+![screenshot](https://user-images.githubusercontent.com/103229059/232278092-b60ed1d3-50fc-4f59-ba4f-5098d2ecc9e3.JPG)
+
 ## About MindSprint
 A dull blade will never cut through an object without any sharpening. Sharpen your skills with Mindsprint!
 
