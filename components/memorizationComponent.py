@@ -26,6 +26,10 @@ class MemorizationComponent(customtkinter.CTkFrame):
         self.sentence = "".join(sequence)
         print(self.sentence)
 
+        self.instructions = customtkinter.CTkLabel(self, text="Copy the letters.\nPress enter to submit your answer.")
+        self.instructions.grid(row=0, column=0)
+        self.instructions.place(relx = 0.5, rely = 0.1,anchor=tkinter.CENTER)
+
         self.reset()
 
     def reset(self):
@@ -74,26 +78,7 @@ class MemorizationComponent(customtkinter.CTkFrame):
                         self.__init__(self.master)
                         break
                 break
-            '''if self.typed != self.shown[:len(self.typed)]:
-                self.typo = True
-                self.typed_label = customtkinter.CTkLabel(master=self, text=self.typed[:len(self.typed)], anchor="w",
-                                                         font=customtkinter.CTkFont(size=30, weight="bold"), text_color=("red"))
-                self.typed_label.grid(row=2, column=0)
-                self.typed_label.place(relx=0.1, rely=0.5)'''
-
-            '''correct_typed = min(len(self.sentence), len(self.typed))
-            for i, (c1, c2) in enumerate(zip(self.sentence, self.typed)):
-                if c1 != c2:
-                    correct_typed = i
-                    break
-            self.correct_typed_label = customtkinter.CTkLabel(master=self, text=self.sentence[:correct_typed], anchor="w",
-                                                     font=customtkinter.CTkFont(size=30, weight="bold"), text_color=("white"))
-            self.correct_typed_label.grid(row=2, column=0)
-            self.correct_typed_label.place(relx=0.1, rely=0.5)
-
-            self.sentence_label.grid(row=2, column=0)
-            self.sentence_label.place(relx=0.1, rely=0.5)'''
-
+            
             event = keyboard.read_event()
             while event.event_type != 'down':
                 event = keyboard.read_event()
@@ -110,12 +95,7 @@ class MemorizationComponent(customtkinter.CTkFrame):
                     self.typed += event.name
                     print(self.typed)
                 self.typed_label.destroy()
-            '''if self.typo and self.typed == self.sentence:
-                self.typed_label.destroy()
-                self.typo = False'''
-
-            #self.sentence_label.destroy()
-            #self.correct_typed_label.destroy()
+            
         if self.typed != self.shown:
             self.typed_label.configure(text = "FAILURE")
             self.configure(fg_color = "red")
@@ -125,10 +105,8 @@ class MemorizationComponent(customtkinter.CTkFrame):
                 if event.event_type == 'down':
                     self.typed_label.destroy()
                     self.__init__(self.master)
-                    break
-                        
+                    break            
 
         else:
             self.typed_label.destroy()
             self.reset()
-
