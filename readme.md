@@ -1,13 +1,13 @@
 # MindSprint
 
-## By
+### By
 
 -   Adam Kennington
 -   Christopher Gronewold
 -   Christian Argueta
 -   Ethan Berkley
 
-## About {Name}
+## About MindSprint
 A dull blade will never cut through an object without any sharpening. Sharpen your skills with Mindsprint!
 
 ## Features
