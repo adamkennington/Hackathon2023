@@ -15,6 +15,7 @@ class TypingComponent(customtkinter.CTkFrame):
 
         self.typed = ""
         self.sentence = ""
+        self.typo = False
 
         self.grid(row=0, column=1, padx=(5, 0), pady=(5, 0), rowspan=4, sticky="nsew")
 
@@ -24,7 +25,7 @@ class TypingComponent(customtkinter.CTkFrame):
     def reset(self):
         self.typed = ""
 
-        f = open('components/10k_words.txt').read()
+        f = open('components/10000-english-usa.txt').read()
         sentences = f.split('\n')
         words = []
         for _ in range(5):
@@ -32,7 +33,8 @@ class TypingComponent(customtkinter.CTkFrame):
         self.sentence = " ".join(words)
         print(self.sentence)
         self.sentence_label = customtkinter.CTkLabel(master=self, text=self.sentence, anchor="w",
-                                                     font=customtkinter.CTkFont(size=30, weight="bold"), text_color=("gray"))
+                                                     font=customtkinter.CTkFont(size=30, weight="bold"),
+                                                     text_color=("gray"))
         self.sentence_label.grid(row=2, column=0)
         self.sentence_label.place(relx=0.1, rely=0.5)
 
@@ -52,14 +54,28 @@ class TypingComponent(customtkinter.CTkFrame):
 
     def start_typing(self):
         while self.typed != self.sentence:
-            if self.typed == self.sentence[:len(self.typed)]:
-                self.typed_label = customtkinter.CTkLabel(master=self, text=self.typed, anchor="w",
-                                                         font=customtkinter.CTkFont(size=30, weight="bold"), text_color=("white"))
-            else:
-                self.typed_label = customtkinter.CTkLabel(master=self, text=self.typed, anchor="w",
+            self.sentence_label = customtkinter.CTkLabel(master=self, text=self.sentence, anchor="w",
+                                                     font=customtkinter.CTkFont(size=30, weight="bold"), text_color=("gray"))
+
+            if self.typed != self.sentence[:len(self.typed)]:
+                self.typo = True
+                self.typed_label = customtkinter.CTkLabel(master=self, text=self.sentence[:len(self.typed)], anchor="w",
                                                          font=customtkinter.CTkFont(size=30, weight="bold"), text_color=("red"))
-            self.typed_label.grid(row=2, column=0)
-            self.typed_label.place(relx=0.1, rely=0.5)
+                self.typed_label.grid(row=2, column=0)
+                self.typed_label.place(relx=0.1, rely=0.5)
+
+            correct_typed = min(len(self.sentence), len(self.typed))
+            for i, (c1, c2) in enumerate(zip(self.sentence, self.typed)):
+                if c1 != c2:
+                    correct_typed = i
+                    break
+            self.correct_typed_label = customtkinter.CTkLabel(master=self, text=self.sentence[:correct_typed], anchor="w",
+                                                     font=customtkinter.CTkFont(size=30, weight="bold"), text_color=("white"))
+            self.correct_typed_label.grid(row=2, column=0)
+            self.correct_typed_label.place(relx=0.1, rely=0.5)
+
+            self.sentence_label.grid(row=2, column=0)
+            self.sentence_label.place(relx=0.1, rely=0.5)
             event = keyboard.read_event()
             if event.event_type == 'down':
                 if event.name == 'backspace':
@@ -71,8 +87,11 @@ class TypingComponent(customtkinter.CTkFrame):
                         event.name = '.'
                     self.typed += event.name
                     print(self.typed)
-            self.typed_label.destroy()
+            if self.typo and self.typed == self.sentence:
+                self.typed_label.destroy()
+                self.typo = False
 
         self.sentence_label.destroy()
+        self.correct_typed_label.destroy()
         self.reset()
 
