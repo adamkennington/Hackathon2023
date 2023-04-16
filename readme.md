@@ -7,7 +7,7 @@
 -   Christian Argueta
 -   Ethan Berkley
 
-# About {Name}
+## About {Name}
 A dull blade will never cut through an object without any sharpening. Sharpen your mind with {Name}
 
 ## Features
