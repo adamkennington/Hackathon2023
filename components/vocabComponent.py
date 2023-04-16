@@ -26,6 +26,7 @@ class VocabComponent(customtkinter.CTkFrame):
         t1 = threading.Thread(target = self.makeObj)
         t1.start()
         
+        
     def makeObj(self):
         self.voc = Vocab()
         
@@ -77,6 +78,9 @@ class VocabComponent(customtkinter.CTkFrame):
         self.load()
 
     def load(self):
+        while threading.active_count() > 1:
+            pass
+
         self.prompt = customtkinter.CTkLabel(self, text = "Placeholder Text", font=("Times", 24, "bold"), wraplength=1000)
         self.prompt.grid(row = 0, column = 0)
         self.prompt.place(relx = 0.5, rely = 0.1,anchor=tkinter.CENTER)
