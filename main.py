@@ -5,7 +5,7 @@ from components.sidebar import Sidebar
 from components.triviaComponent import TriviaComponent
 from components.vocabComponent import VocabComponent
 from components.typingComponent import TypingComponent
-
+from components.reactionComponent import ReactionComponent
 customtkinter.set_appearance_mode("Dark")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
@@ -85,6 +85,10 @@ class App(customtkinter.CTk):
         self.tab_frame.grid(row=0, column=1, rowspan=3, columnspan=3, sticky="nsew")
         self.tab_label = customtkinter.CTkLabel(self.tab_frame, text="", font=customtkinter.CTkFont(size=20, weight="bold"))
 
+    def createReaction(self):
+        self.tab_frame = ReactionComponent(self, self.after, corner_radius=0)
+        self.tab_frame.grid(row=0, column=1, rowspan=3, columnspan=3, sticky="nsew")
+
     def open_input_dialog_event(self):
         dialog = customtkinter.CTkInputDialog(text="Type in a number:", title="CTkInputDialog")
         print("CTkInputDialog:", dialog.get_input())
@@ -108,6 +112,9 @@ class App(customtkinter.CTk):
 
         if self.sidebar_frame.sidebar_names[index] == "Typing":
             self.createTyping()
+
+        if self.sidebar_frame.sidebar_names[index] == "Reaction":
+            self.createReaction()
 
         print(f"{self.sidebar_frame.sidebar_names[index]} click")
         # self.tab_label.configure(text=f"{self.sidebar_frame.sidebar_names[index]}")
